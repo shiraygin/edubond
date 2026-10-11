@@ -1,50 +1,30 @@
 import Link from 'next/link';
-import { ArrowRight, ArrowUpRight, BookOpen, GraduationCap, Sparkles, Users } from 'lucide-react';
+import Image from 'next/image';
+import { BookOpen, GraduationCap, Search } from 'lucide-react';
 import { CourseCard } from '@/components/course-card';
 import { courses } from '@/lib/catalog';
-
-const steps = [
-  { number: '01', title: 'Discover', body: 'Explore a growing range of subjects and find what interests you.', icon: BookOpen },
-  { number: '02', title: 'Connect', body: 'Find the right resources and a learning path for your goals.', icon: Users },
-  { number: '03', title: 'Grow', body: 'Build skills, stay curious, and take the next step with confidence.', icon: GraduationCap }
-];
-
-export default function Home() {
-  return <>
-    <section className="relative overflow-hidden bg-cream">
-      <div className="pointer-events-none absolute -right-24 top-10 h-96 w-96 rounded-full bg-sky blur-3xl" aria-hidden="true"/>
-      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 sm:px-8 lg:grid-cols-2 lg:py-28">
-        <div>
-          <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-sky px-4 py-2 text-xs font-bold tracking-wide text-blue"><Sparkles size={15}/> REIMAGINING EDUCATION</p>
-          <h1 className="max-w-xl text-5xl font-black leading-[1.08] tracking-tight text-navy sm:text-6xl lg:text-7xl">Learning is better <span className="text-blue">together.</span></h1>
-          <p className="mt-6 max-w-lg text-lg leading-8 text-slate-600">A welcoming space for curious minds. Explore subjects, discover lessons, and build your next big skill.</p>
-          <div className="mt-9 flex flex-wrap gap-3">
-            <Link href="/courses" className="inline-flex items-center gap-2 rounded-full bg-blue px-7 py-4 text-sm font-bold text-white shadow-soft transition hover:bg-navy">Explore courses <ArrowRight size={18}/></Link>
-            <Link href="#how-it-works" className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-7 py-4 text-sm font-bold text-navy transition hover:border-blue">How it works <ArrowUpRight size={17}/></Link>
-          </div>
-        </div>
-        <div className="relative mx-auto w-full max-w-lg" aria-label="Decorative learning illustration">
-          <div className="rounded-[2.5rem] border border-blue-100 bg-sky p-8 shadow-soft sm:p-12">
-            <div className="rounded-[2rem] bg-white p-7 shadow-soft">
-              <div className="mb-6 flex items-center justify-between"><span className="rounded-full bg-blue-100 px-4 py-2 text-xs font-bold text-blue">Your learning space</span><Sparkles className="text-amber-500"/></div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="flex aspect-square items-center justify-center rounded-[1.5rem] bg-amber-100 text-6xl font-black text-amber-700">∑</div>
-                <div className="flex aspect-square items-center justify-center rounded-[1.5rem] bg-blue-100 text-5xl font-black text-blue">Aa</div>
-                <div className="col-span-2 flex items-center gap-4 rounded-2xl bg-navy p-5 text-white"><span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/15"><BookOpen size={26}/></span><div><p className="font-extrabold">Explore something new</p><p className="text-xs text-slate-300">One lesson at a time</p></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+const steps=[{title:'Discover',description:'Explore a wide variety of engaging subjects and interactive lessons.',icon:Search},{title:'Enroll',description:'Join a class that excites you and learn alongside curious classmates.',icon:BookOpen},{title:'Learn',description:'Gain knowledge from expert teachers and develop essential skills.',icon:GraduationCap}];
+export default function Home(){
+  return <div className="text-center">
+    <section className="hero-enter mx-auto flex max-w-5xl flex-col items-center px-5 pb-14 pt-16 sm:pt-20">
+      <h1 className="text-[clamp(2.2rem,5vw,3.15rem)] font-bold leading-tight text-black">STUDY WITH US<br/><strong>EDUBONDS</strong></h1>
+      <Image src="/edubonds-logo.png" alt="Original EduBonds logo" width={300} height={300} className="logo-bounce my-5 h-auto w-[210px] object-contain sm:w-[300px]" priority/>
+      <Link href="/courses" className="rounded-[20px] bg-[#007bff] px-8 py-3 text-lg font-medium text-white transition hover:scale-105 hover:bg-[#0056b3]">Get Started</Link>
     </section>
-    <section id="how-it-works" className="mx-auto max-w-7xl px-5 py-20 sm:px-8">
-      <p className="text-sm font-extrabold uppercase tracking-[.18em] text-blue">The journey</p>
-      <h2 className="mt-3 text-4xl font-black tracking-tight text-navy">A simple path to progress.</h2>
-      <div className="mt-10 grid gap-6 md:grid-cols-3">{steps.map(({number,title,body,icon:Icon})=><div key={number} className="rounded-3xl border border-slate-200 bg-white p-8"><div className="flex items-center justify-between"><span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-sky text-blue"><Icon size={25}/></span><span className="text-3xl font-black text-slate-200">{number}</span></div><h3 className="mt-6 text-xl font-extrabold text-navy">{title}</h3><p className="mt-2 leading-7 text-slate-600">{body}</p></div>)}</div>
+    <section id="how-it-works" className="mx-auto max-w-[1200px] rounded-[20px] bg-white px-5 py-10 sm:px-10">
+      <div className="grid justify-items-center gap-7 md:grid-cols-3">{steps.map(({title,description,icon:Icon})=><article key={title} className="flex w-full max-w-[290px] flex-col items-center rounded-[15px] bg-[#f9f9f9] px-5 py-8 shadow-[0_4px_10px_rgba(0,0,0,.1)] transition-transform hover:-translate-y-1">
+        <div className="flex h-[145px] w-[185px] items-center justify-center rounded-xl bg-gradient-to-b from-[#b8d6f5] to-[#c4ebdf] text-[#007bff]"><Icon size={70} strokeWidth={1.5}/></div>
+        <h3 className="mt-5 text-xl font-bold">{title}</h3><p className="mt-3 text-sm leading-7">{description}</p>
+      </article>)}</div>
     </section>
-    <section className="bg-mist py-20"><div className="mx-auto max-w-7xl px-5 sm:px-8">
-      <div className="flex flex-wrap items-end justify-between gap-5"><div><p className="text-sm font-extrabold uppercase tracking-[.18em] text-blue">Explore what inspires you</p><h2 className="mt-3 text-4xl font-black tracking-tight text-navy">Featured courses</h2><p className="mt-3 text-sm text-slate-600">Sample courses illustrating the new EduBond experience.</p></div><Link href="/courses" className="inline-flex items-center gap-2 text-sm font-extrabold text-blue">All courses <ArrowUpRight size={18}/></Link></div>
-      <div className="mt-9 grid gap-6 md:grid-cols-2 lg:grid-cols-3">{courses.slice(0,3).map(course=><CourseCard key={course.id} course={course}/>)}</div>
-    </div></section>
-  </>;
+    <section className="mx-auto max-w-6xl px-5 py-16">
+      <h2 className="text-3xl font-bold text-black">Featured Courses</h2><p className="mt-3 text-base">Explore these handpicked courses and start learning today!</p>
+      <p className="mt-1 text-xs text-slate-600">Sample courses for the frontend preview</p>
+      <div className="mt-9 flex flex-wrap justify-center gap-6">{courses.slice(0,2).map(course=><CourseCard key={course.id} course={course}/>)}</div>
+      <Link href="/courses" className="mt-9 inline-block rounded-[20px] bg-[#007bff] px-7 py-3 font-semibold text-white hover:bg-[#0056b3]">Browse All Courses</Link>
+    </section>
+    <section className="mx-auto max-w-[1200px] rounded-[20px] bg-white/90 px-8 py-12 text-center shadow-sm">
+      <h2 className="text-2xl font-bold">About EduBonds</h2><p className="mx-auto mt-4 max-w-2xl leading-8 text-slate-700">A space where students can discover courses, connect with tutors, and grow through learning.</p>
+    </section>
+  </div>;
 }
