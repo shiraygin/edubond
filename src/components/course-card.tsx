@@ -1,11 +1,9 @@
 import type { Course } from '@/lib/catalog';
-
-const tones: Record<string,string>={Programming:'bg-[#b8d6f5] text-[#0056b3]',Mathematics:'bg-[#d0f2e3] text-[#16795e]',Languages:'bg-[#dceafa] text-[#1565c0]',Science:'bg-[#c7e9da] text-[#14654f]'};
+import { BookOpen, ArrowUpRight } from 'lucide-react';
+const colors:Record<string,string>={Programming:'from-[#9cc8fb]/80 to-[#d0e8ff]/60',Mathematics:'from-[#b1e5cb]/80 to-[#e4f9ed]/70',Languages:'from-[#c5e0ff]/80 to-[#e4f1ff]/70',Science:'from-[#90dcbf]/80 to-[#d4f3e6]/70'};
 export function CourseCard({course}:{course:Course}){
-  return <article className="flex h-full w-full max-w-[285px] flex-col items-center rounded-xl bg-white p-5 text-center shadow-[0_4px_12px_rgba(0,0,0,.12)] transition duration-200 hover:-translate-y-1 hover:shadow-[0_8px_18px_rgba(0,0,0,.17)]">
-    <div className={`flex h-[150px] w-full items-center justify-center rounded-lg ${tones[course.category]??'bg-[#b8d6f5] text-[#1565c0]'}`}><span aria-hidden="true" className="text-5xl font-bold">{course.symbol}</span></div>
-    <h3 className="mt-4 text-lg font-bold text-[#1565c0]">{course.title}</h3>
-    <p className="mt-2 flex-1 text-sm leading-6 text-[#333]">{course.description}</p>
-    <span className="mt-3 text-xs text-slate-500">{course.lessons} lessons · {course.level}</span>
-  </article>;
+ return <article className="glass glass-hover flex h-full flex-col overflow-hidden rounded-[26px] p-3.5">
+  <div className={`relative flex h-44 items-center justify-center rounded-[19px] bg-gradient-to-br ${colors[course.category]??colors.Programming}`}><span aria-hidden="true" className="text-6xl font-bold text-[#1763a7] drop-shadow-sm">{course.symbol}</span><span className="absolute left-4 top-4 rounded-full border border-white/70 bg-white/65 px-3 py-1 text-xs font-semibold text-[#27637d] backdrop-blur-md">{course.category}</span></div>
+  <div className="flex flex-1 flex-col px-2 pb-2 pt-5"><div className="mb-2 text-left text-[11px] font-bold uppercase tracking-wider text-[#477a91]">{course.level}</div><h3 className="text-left text-xl font-bold text-[#16466c]">{course.title}</h3><p className="mt-2 flex-1 text-left text-sm leading-7 text-[#4a687c]">{course.description}</p><div className="mt-5 flex items-center justify-between border-t border-white/60 pt-4 text-sm font-semibold text-[#37647d]"><span className="inline-flex items-center gap-2"><BookOpen size={16}/>{course.lessons} lessons</span><span className="flex items-center gap-1 text-[#007bff]">Preview <ArrowUpRight size={17}/></span></div></div>
+ </article>
 }
