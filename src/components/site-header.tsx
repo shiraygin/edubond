@@ -4,28 +4,17 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { Menu, Search, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-
-export function SiteHeader() {
-  const [open,setOpen]=useState(false);
-  const [query,setQuery]=useState('');
-  const router=useRouter();
-  const nav=[{href:'/',label:'Home'},{href:'/courses',label:'Courses'}];
-  function search(event:React.FormEvent<HTMLFormElement>){event.preventDefault();router.push('/courses?q='+encodeURIComponent(query.trim()));setOpen(false)}
-  return <header className="sticky top-0 z-50 bg-white/85 shadow-[0_4px_10px_rgba(0,0,0,.10)] backdrop-blur-md">
-    <div className="mx-auto flex min-h-[80px] max-w-7xl items-center justify-between gap-5 px-5 py-3 md:px-8">
-      <Link href="/" className="logo-bounce inline-flex shrink-0 items-center gap-2" aria-label="EduBonds home">
-        <Image src="/edubonds-logo.png" alt="EduBonds logo" width={120} height={60} className="h-[55px] w-auto object-contain" priority/>
-      </Link>
-      <nav aria-label="Main navigation" className="hidden items-center gap-7 md:flex">{nav.map(n=><Link key={n.href} href={n.href} className="text-base font-bold text-black transition hover:text-[#007bff]">{n.label}</Link>)}</nav>
-      <div className="hidden items-center gap-3 md:flex">
-        <form onSubmit={search} className="relative"><Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"/><input aria-label="Search courses" value={query} onChange={e=>setQuery(e.target.value)} className="w-48 rounded-full border border-slate-300 bg-white px-4 py-2 pl-9 text-sm outline-none focus:border-[#007bff] lg:w-60" placeholder="Search for courses..." /></form>
-        <Link href="/courses" className="rounded-md bg-[#007bff] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#0056b3]">Get Started</Link>
-      </div>
-      <button className="rounded-lg border border-slate-200 bg-white p-2 md:hidden" onClick={()=>setOpen(!open)} aria-expanded={open} aria-label={open?'Close menu':'Open menu'}>{open?<X/>:<Menu/>}</button>
-    </div>
-    {open&&<div className="space-y-3 border-t border-slate-200 bg-white/95 px-5 py-5 md:hidden">
-      {nav.map(n=><Link key={n.href} href={n.href} onClick={()=>setOpen(false)} className="block font-bold text-black">{n.label}</Link>)}
-      <form onSubmit={search} className="flex gap-2"><input aria-label="Search courses" placeholder="Search courses..." value={query} onChange={e=>setQuery(e.target.value)} className="min-w-0 flex-1 rounded-lg border border-slate-300 p-2"/><button aria-label="Submit search" className="rounded-lg bg-[#007bff] px-4 text-white"><Search size={18}/></button></form>
-    </div>}
-  </header>;
+export function SiteHeader(){
+ const [open,setOpen]=useState(false),[query,setQuery]=useState('');
+ const router=useRouter();
+ function search(e:React.FormEvent<HTMLFormElement>){e.preventDefault();router.push('/courses?q='+encodeURIComponent(query.trim()));setOpen(false)}
+ return <header className="sticky top-0 z-50 px-3 pt-3 sm:px-6">
+  <div className="glass-strong mx-auto flex max-w-7xl items-center justify-between gap-5 rounded-[24px] px-5 py-2.5 lg:px-7">
+   <Link href="/" aria-label="EduBonds home" className="shrink-0"><Image src="/edubonds-logo.png" alt="EduBonds" width={106} height={54} className="h-12 w-auto object-contain"/></Link>
+   <nav aria-label="Main navigation" className="hidden items-center gap-8 md:flex"><Link href="/" className="font-semibold text-[#173650] hover:text-[#007bff]">Home</Link><Link href="/courses" className="font-semibold text-[#173650] hover:text-[#007bff]">Courses</Link><Link href="/#how-it-works" className="font-semibold text-[#173650] hover:text-[#007bff]">How it works</Link></nav>
+   <div className="hidden items-center gap-3 md:flex"><form onSubmit={search} className="relative"><Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#50738b]"/><input aria-label="Search courses" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search courses..." className="w-44 rounded-full border border-white/80 bg-white/55 py-2.5 pl-10 pr-4 text-sm outline-none placeholder:text-[#688398] focus:bg-white lg:w-56"/></form><Link href="/courses" className="blue-btn rounded-full px-5 py-2.5 text-sm font-bold text-white">Get started</Link></div>
+   <button type="button" aria-label={open?'Close navigation':'Open navigation'} aria-expanded={open} onClick={()=>setOpen(!open)} className="rounded-xl border border-white/75 bg-white/45 p-2 md:hidden">{open?<X size={22}/>:<Menu size={22}/>}</button>
+  </div>
+  {open&&<nav aria-label="Mobile navigation" className="glass-strong mx-auto mt-2 flex max-w-7xl flex-col gap-4 rounded-2xl p-5 md:hidden"><Link href="/" onClick={()=>setOpen(false)}>Home</Link><Link href="/courses" onClick={()=>setOpen(false)}>Courses</Link><Link href="/#how-it-works" onClick={()=>setOpen(false)}>How it works</Link><form onSubmit={search} className="flex gap-2"><input aria-label="Search courses" className="min-w-0 flex-1 rounded-xl border border-white bg-white/70 p-3" placeholder="Search courses" value={query} onChange={e=>setQuery(e.target.value)}/><button aria-label="Submit search" className="blue-btn rounded-xl px-4 text-white"><Search size={18}/></button></form></nav>}
+ </header>;
 }
