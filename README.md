@@ -1,83 +1,37 @@
-# EduBond 2.0
+# EduBond 2.0 — Interactive Portfolio Demo
 
-A modern, full-stack rebuild of the original **EduBounds** PHP education platform.
+Modern glassmorphism rebuild of [EduBounds](https://github.com/shiraygin/EduBounds), the original PHP education marketplace.
 
-**Status:** Phase 2 — frontend + initial auth/database integration. This repository currently contains a responsive Next.js landing page and an interactive **sample-data** course browser. Authentication, tutor discovery and dashboard readers are implemented but **require Supabase configuration and the SQL migration**. Enrollments, uploads, approvals, checkout and financial processing are **not yet implemented**.
+## Demo features
+- Choose between Student, Tutor, and Admin personas from the role selector
+- Browse and search courses, open course details, discover tutors
+- Student: simulate lesson purchases and leave ratings
+- Tutor: add lessons, view pending approvals and simulated earnings
+- Admin: add/delete courses and approve/unapprove lessons
+- All changes are stored in the current browser using localStorage
+- Reset Demo restores the original sample data
 
-## Tech stack
-
-- Next.js 15 (App Router)
-- React 19 + TypeScript
-- Tailwind CSS 3
-- Lucide icons
-- Supabase SSR/Auth + PostgreSQL (requires project configuration)
+**This is not a live educational service.** No real authentication, money, customer data, file storage, or server database is involved. Accounts are illustrative personas, not secure user accounts.
 
 ## Run locally
-
-Prerequisites: Node.js 20+ and npm.
+Requires Node.js 20+ and npm.
 
 ```bash
 npm install
 npm run dev
-```
-
-Open http://localhost:3000.
-
-```bash
 npm run typecheck
 npm run build
 ```
 
-## Current routes
+Open http://localhost:3000.
 
-- `/`: landing page and featured sample courses
-- `/courses`: responsive searchable/filterable sample catalog
-- `/courses/[id]`: database-backed course details and approved lesson listings
-- `/auth`, `/auth/reset`, `/auth/update-password`: Supabase sign-in, student/tutor registration and password recovery
-- `/account`: role-aware secured account overview
-- `/tutors`: database-backed tutor directory
+## Tech
+Next.js 15 · React 19 · TypeScript · Tailwind CSS · Lucide · localStorage
 
-## Planned modules (not yet implemented)
+## Original workflow mapping
+The architecture follows the original PHP's student, tutor, admin, courses, lessons, purchases and ratings features. Some activities are intentionally simulated. Uploaded lesson files are not stored. Payment is a clearly labeled **demo purchase**.
 
-1. Finish privileged admin dashboard and permissions
-2. Populate/migrate vetted legacy database content
-3. Course and lesson editing/upload workflows
-4. Tutor profiles, reviews, and discovery
-5. Student enrollments and access control
-6. Payment gateway verification and transaction-safe financial records
-7. Admin management and auditing
+To return to a production application later, replace `src/components/demo-provider.tsx` with authenticated backend/API calls.
 
-## Supabase setup
-
-1. Create a new Supabase project.
-2. Apply `supabase/migrations/0001_edubond_core.sql` in its SQL editor.
-3. Copy `.env.example` to `.env.local` and fill the Supabase URL and publishable/anon key.
-4. Configure email confirmations and redirect URLs in Supabase Auth.
-5. Run `npm install`, `npm run typecheck`, and `npm run build`.
-
-More details in `docs/LEGACY-MIGRATION.md`.
-
-## Migration notes
-
-Original PHP source: [EduBounds](https://github.com/shiraygin/EduBounds).
-
-The legacy code is a reference for **requirements and workflows**, not a source to copy directly. Security-sensitive legacy patterns (including session handling and simulated payment confirmation) must be replaced rather than ported.
-
-**Security:** Do not publish real credentials, personal user records, or payment information. Never treat browser-provided payment results as proof of payment. Use server-verified webhooks and idempotent processing when payment integration is built.
-
-## Repository layout
-
-```
-src/
-  app/
-    layout.tsx
-    page.tsx
-    courses/page.tsx
-    globals.css
-  components/
-    site-header.tsx
-    course-browser.tsx
-    course-card.tsx
-  lib/
-    catalog.ts
-```
+## Deployment
+Deploy on Vercel as a Next.js app with no environment variables. Each visitor gets isolated local demo data.
