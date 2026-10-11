@@ -5,8 +5,9 @@ export type Course={id:string;title:string;description:string;category:string;sy
 export type Lesson={id:string;courseId:string;tutorId:string;title:string;description:string;price:number;approved:boolean;resource?:string};
 export type Purchase={id:string;studentId:string;lessonId:string;total:number;date:string};
 export type Review={id:string;studentId:string;lessonId:string;rating:number;comment:string};
+export type Question={id:string;title:string;content:string;authorId:string;answer?:string};
 export type WalletEntry={id:string;userId:string;amount:number;kind:'topup'|'purchase'|'sale'|'refund';note:string;date:string;purchaseId?:string};
-export type State={users:User[];courses:Course[];lessons:Lesson[];purchases:Purchase[];reviews:Review[];currentUser:string;wallets:Record<string,number>;walletHistory:WalletEntry[]};
+export type State={users:User[];courses:Course[];lessons:Lesson[];purchases:Purchase[];reviews:Review[];currentUser:string;wallets:Record<string,number>;walletHistory:WalletEntry[];questions:Question[]};
 export const seed:State={
  users:[
  {id:'s1',name:'Sara Ahmed',role:'student',email:'sara@example.demo'},
@@ -25,6 +26,7 @@ export const seed:State={
  ],
  purchases:[{id:'p1',studentId:'s1',lessonId:'l1',total:35,date:'2026-09-20'}],
  reviews:[{id:'r1',studentId:'s1',lessonId:'l1',rating:5,comment:'Clear and easy to follow!'}],
+ questions:[{id:'q1',title:'How can I find a tutor?',content:'I would love some help choosing a course.',authorId:'s1',answer:'Browse the Tutors page and open a profile to see their lessons.'}],
  wallets:{s1:465,t1:35,t2:0,a1:0},
  walletHistory:[{id:'tx0',userId:'s1',amount:-35,kind:'purchase',note:'Variables and Data Types',date:'2026-09-20',purchaseId:'p1'},{id:'tx1',userId:'t1',amount:35,kind:'sale',note:'Variables and Data Types',date:'2026-09-20',purchaseId:'p1'}],
  currentUser:'s1'
