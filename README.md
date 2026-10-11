@@ -2,7 +2,7 @@
 
 A modern, full-stack rebuild of the original **EduBounds** PHP education platform.
 
-**Status:** Phase 1 — frontend foundation. This repository currently contains a responsive Next.js landing page and an interactive **sample-data** course browser. Authentication, database persistence, enrollments, tutoring workflows, and payments are **not implemented yet**.
+**Status:** Phase 2 — frontend + initial auth/database integration. This repository currently contains a responsive Next.js landing page and an interactive **sample-data** course browser. Authentication, tutor discovery and dashboard readers are implemented but **require Supabase configuration and the SQL migration**. Enrollments, uploads, approvals, checkout and financial processing are **not yet implemented**.
 
 ## Tech stack
 
@@ -10,6 +10,7 @@ A modern, full-stack rebuild of the original **EduBounds** PHP education platfor
 - React 19 + TypeScript
 - Tailwind CSS 3
 - Lucide icons
+- Supabase SSR/Auth + PostgreSQL (requires project configuration)
 
 ## Run locally
 
@@ -31,16 +32,30 @@ npm run build
 
 - `/`: landing page and featured sample courses
 - `/courses`: responsive searchable/filterable sample catalog
+- `/courses/[id]`: database-backed course details and approved lesson listings
+- `/auth`, `/auth/reset`, `/auth/update-password`: Supabase sign-in, student/tutor registration and password recovery
+- `/account`: role-aware secured account overview
+- `/tutors`: database-backed tutor directory
 
 ## Planned modules (not yet implemented)
 
-1. Student/tutor/admin authentication and protected role-based pages
-2. Database schema and data-access layer
-3. Course and lesson creation, editing, and browsing
+1. Finish privileged admin dashboard and permissions
+2. Populate/migrate vetted legacy database content
+3. Course and lesson editing/upload workflows
 4. Tutor profiles, reviews, and discovery
 5. Student enrollments and access control
 6. Payment gateway verification and transaction-safe financial records
 7. Admin management and auditing
+
+## Supabase setup
+
+1. Create a new Supabase project.
+2. Apply `supabase/migrations/0001_edubond_core.sql` in its SQL editor.
+3. Copy `.env.example` to `.env.local` and fill the Supabase URL and publishable/anon key.
+4. Configure email confirmations and redirect URLs in Supabase Auth.
+5. Run `npm install`, `npm run typecheck`, and `npm run build`.
+
+More details in `docs/LEGACY-MIGRATION.md`.
 
 ## Migration notes
 
