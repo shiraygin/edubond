@@ -19,7 +19,7 @@ export function CourseBrowser() {
       <label className="relative block max-w-xl">
         <span className="sr-only">Search sample courses</span>
         <Search aria-hidden="true" size={19} className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400"/>
-        <input type="search" value={query} onChange={event=>setQuery(event.target.value)} placeholder="Search courses or topics..." className="w-full rounded-2xl border border-slate-200 bg-white py-4 pl-13 pr-5 text-sm shadow-sm placeholder:text-slate-400 focus:border-blue focus:outline-none"/>
+        <input type="search" value={query} onChange={event=>setQuery(event.target.value)} placeholder="Search courses or topics..." className="w-full rounded-2xl border border-slate-200 bg-white py-4 pl-14 pr-5 text-sm shadow-sm placeholder:text-slate-400 focus:border-blue focus:outline-none"/>
       </label>
       <div role="group" aria-label="Filter by category" className="flex flex-wrap gap-2">{categories.map(item=><button key={item} type="button" onClick={()=>setCategory(item)} aria-pressed={category===item} className={`rounded-full px-5 py-2.5 text-sm font-semibold transition ${category===item?'bg-navy text-white':'border border-slate-200 bg-white text-slate-600 hover:border-blue hover:text-blue'}`}>{item}</button>)}</div>
     </div>
