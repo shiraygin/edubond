@@ -30,3 +30,18 @@ body{font-family:'Poppins',sans-serif;color:#173650;background:#b8d6f5;min-heigh
 .purchase-processing:after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent,rgba(255,255,255,.24),transparent);animation:purchase-shine .85s linear infinite}
 @keyframes purchase-shine{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
 @media(prefers-reduced-motion:reduce){.auth-float,.purchase-success,.purchase-processing:after{animation:none}}
+
+/* Sliding two-panel authentication: animated illustrated half on desktop. */
+.auth-slide-panel{transition:left .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1);will-change:left}
+.auth-slide-right{left:50%}
+.auth-slide-left{left:0}
+.auth-form-visible{opacity:1;transform:translateX(0);visibility:visible;transition-delay:.12s}
+.auth-form-hidden-left{opacity:0;transform:translateX(-14px);visibility:hidden;pointer-events:none}
+.auth-form-hidden-right{opacity:0;transform:translateX(14px);visibility:hidden;pointer-events:none}
+@media(max-width:767px){
+ .auth-form-hidden-left,.auth-form-hidden-right{display:none}
+ .auth-form-visible{grid-column:1;overflow-y:visible}
+}
+@media(prefers-reduced-motion:reduce){
+ .auth-slide-panel,.auth-form-visible,.auth-form-hidden-left,.auth-form-hidden-right{transition:none!important}
+}
