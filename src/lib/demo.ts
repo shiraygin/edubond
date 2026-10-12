@@ -17,11 +17,11 @@ export const seed:State={
  ],
  courses:examples.map(({id,title,description,category,symbol,level})=>({id,title,description,category,symbol,level})),
  lessons:[
- {id:'l1',courseId:'python',tutorId:'t1',title:'Variables and Data Types',description:'Meet the building blocks of Python.',price:35,approved:true},
- {id:'l2',courseId:'python',tutorId:'t1',title:'Loops and Conditions',description:'Practice branching and iteration.',price:45,approved:true},
- {id:'l3',courseId:'web',tutorId:'t1',title:'Your First HTML Page',description:'Get started with web development.',price:40,approved:true},
- {id:'l4',courseId:'algebra',tutorId:'t2',title:'Solving Equations',description:'One variable at a time.',price:30,approved:true},
- {id:'l5',courseId:'calculus',tutorId:'t2',title:'Understanding Limits',description:'An approachable introduction to calculus.',price:50,approved:true},
+ {id:'l1',courseId:'python',tutorId:'t1',title:'Variables and Data Types',description:'Meet the building blocks of Python.',price:35,approved:true,resource:"Python stores values in variables. Example: name = 'Sara' and age = 20.\\n\\nCommon data types include strings, integers, floats, and booleans.\\n\\nTry it: Create a variable called course and give it the value 'EduBonds'. Then print it using print(course)."},
+ {id:'l2',courseId:'python',tutorId:'t1',title:'Loops and Conditions',description:'Practice branching and iteration.',price:45,approved:true,resource:"Conditions let programs make decisions. An if statement checks a condition, and else handles other outcomes.\\n\\nLoops repeat a task. Use for to iterate a sequence and while to repeat while a condition remains true.\\n\\nTry it: Write a loop that prints numbers 1 through 5."},
+ {id:'l3',courseId:'web',tutorId:'t1',title:'Your First HTML Page',description:'Get started with web development.',price:40,approved:true,resource:"HTML structures a webpage. A heading uses <h1>, paragraphs use <p>, and links use <a>.\\n\\nCreate a page with a heading, one paragraph, and a link. Then add styles to make it responsive."},
+ {id:'l4',courseId:'algebra',tutorId:'t2',title:'Solving Equations',description:'One variable at a time.',price:30,approved:true,resource:"To solve an equation, keep both sides balanced.\\n\\nExample: x + 4 = 9. Subtract 4 from both sides to get x = 5.\\n\\nTry it: Solve 2x + 3 = 11."},
+ {id:'l5',courseId:'calculus',tutorId:'t2',title:'Understanding Limits',description:'An approachable introduction to calculus.',price:50,approved:true,resource:"A limit describes the value a function approaches as its input approaches a point.\\n\\nExample: As x approaches 2, x + 3 approaches 5.\\n\\nTry it: Find the limit of 2x + 1 as x approaches 4."},
  {id:'l6',courseId:'python',tutorId:'t1',title:'Functions Workshop',description:'Functions, inputs, and outputs.',price:60,approved:false}
  ],
  purchases:[{id:'p1',studentId:'s1',lessonId:'l1',total:35,date:'2026-09-20'}],
