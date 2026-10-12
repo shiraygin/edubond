@@ -24,7 +24,7 @@ export default function Auth(){
  }
  return <section className="mx-auto max-w-6xl px-5 py-14 sm:py-20">
   <div className="glass overflow-hidden rounded-[32px] border border-white/80 shadow-[0_25px_80px_rgba(22,80,115,.14)]">
-   <div className="relative min-h-[620px] overflow-hidden md:min-h-[650px]">
+   <div className="relative min-h-[760px] overflow-hidden md:min-h-[650px]">
     {/* Two permanently mounted form halves preserve form values during the animated transition. */}
     <div className="absolute inset-0 grid grid-cols-1 md:grid-cols-2">
      <div className={`flex min-h-0 flex-col justify-center overflow-y-auto p-7 transition-all duration-500 ease-in-out sm:p-10 lg:p-14 ${mode==='login'?'auth-form-visible':'auth-form-hidden-left'}`}>
