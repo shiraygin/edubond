@@ -7,7 +7,7 @@ export type Purchase={id:string;studentId:string;lessonId:string;total:number;da
 export type Review={id:string;studentId:string;lessonId:string;rating:number;comment:string};
 export type Question={id:string;title:string;content:string;authorId:string;answer?:string};
 export type WalletEntry={id:string;userId:string;amount:number;kind:'topup'|'purchase'|'sale'|'refund';note:string;date:string;purchaseId?:string};
-export type State={users:User[];courses:Course[];lessons:Lesson[];purchases:Purchase[];reviews:Review[];currentUser:string;wallets:Record<string,number>;walletHistory:WalletEntry[];questions:Question[]};
+export type State={users:User[];courses:Course[];lessons:Lesson[];purchases:Purchase[];reviews:Review[];currentUser:string;wallets:Record<string,number>;walletHistory:WalletEntry[];questions:Question[];completedLessons:string[]};
 export const seed:State={
  users:[
  {id:'s1',name:'Sara Ahmed',role:'student',email:'sara@example.demo'},
@@ -29,6 +29,7 @@ export const seed:State={
  questions:[{id:'q1',title:'How can I find a tutor?',content:'I would love some help choosing a course.',authorId:'s1',answer:'Browse the Tutors page and open a profile to see their lessons.'}],
  wallets:{s1:465,t1:35,t2:0,a1:0},
  walletHistory:[{id:'tx0',userId:'s1',amount:-35,kind:'purchase',note:'Variables and Data Types',date:'2026-09-20',purchaseId:'p1'},{id:'tx1',userId:'t1',amount:35,kind:'sale',note:'Variables and Data Types',date:'2026-09-20',purchaseId:'p1'}],
+ completedLessons:[],
  currentUser:'s1'
 };
 export const demoKey='edubond-v4-demo';
@@ -55,5 +56,13 @@ export function removeLessons(s:State,ids:string[]):State{
   history.unshift({id:uid(),userId:p.studentId,amount:p.total,kind:'refund',note:'Lesson removed — refund',date:new Date().toISOString(),purchaseId:p.id});
   if(tutor)history.unshift({id:uid(),userId:tutor,amount:-p.total,kind:'refund',note:'Lesson removed — reversal',date:new Date().toISOString(),purchaseId:p.id});
  }
- return {...s,lessons:s.lessons.filter(l=>!target.has(l.id)),purchases:s.purchases.filter(p=>!target.has(p.lessonId)),reviews:s.reviews.filter(r=>!target.has(r.lessonId)),wallets,walletHistory:history};
+ return {...s,lessons:s.lessons.filter(l=>!target.has(l.id)),purchases:s.purchases.filter(p=>!target.has(p.lessonId)),reviews:s.reviews.filter(r=>!target.has(r.lessonId)),completedLessons:(s.completedLessons??[]).filter(k=>!ids.some(id=>k.endsWith(':'+id))),wallets,walletHistory:history};
 }
+
+export function completeLesson(s:State,userId:string,lessonId:string):State{
+ if(!s.users.some(u=>u.id===userId&&u.role==='student')||!s.purchases.some(p=>p.studentId===userId&&p.lessonId===lessonId)||!s.lessons.some(l=>l.id===lessonId))return s;
+ const key=userId+':'+lessonId;
+ if((s.completedLessons??[]).includes(key))return s;
+ return {...s,completedLessons:[...(s.completedLessons??[]),key]};
+}
+export function lessonCompleted(s:State,userId:string,lessonId:string){return (s.completedLessons??[]).includes(userId+':'+lessonId)}
